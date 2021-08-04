@@ -12,9 +12,11 @@
   "license": "ISC",
   "dependencies": {
     "@koa/router": "^10.1.0",
+    "@types/mongoose": "^5.11.97",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.1",
-    "koa-bodyparser": "^4.3.0"
+    "koa-bodyparser": "^4.3.0",
+    "mongoose": "^5.13.5"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^8.5.4",

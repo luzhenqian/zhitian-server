@@ -27,11 +27,12 @@ type Rules = { [key in string]: ValidType[] };
 
 interface Options {
   rules: Rules;
-  in_: In;
+  in: In;
 }
 
 export default function (ctx: Context, options: Options): boolean {
-  const { rules, in_ } = options;
+  const { rules } = options;
+  const in_ = options.in;
   let passed = true;
   const data = ctx.request.body;
   for (let field in rules) {
