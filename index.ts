@@ -1,9 +1,19 @@
 import Koa from "koa";
 import bodyParser from "koa-bodyparser";
+import dotenv from "dotenv";
 
 import router from "./controller/access";
 import authoriaztion from "./middlewares/authoriaztion";
+import { init } from "./boots";
 
-const app = new Koa();
+dotenv.config();
 
-app.use(authoriaztion).use(bodyParser()).use(router.routes()).listen(3000);
+init().then(() => {
+  const app = new Koa();
+
+  app
+    .use(authoriaztion({ skipper: ["/register", "/login"] }))
+    .use(bodyParser())
+    .use(router.routes())
+    .listen(3000);
+});

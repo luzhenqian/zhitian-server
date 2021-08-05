@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
+interface Access {
+  access_name: string;
+  password: string;
+}
+
 const accessSchema = new Schema({
   access_name: String,
   password: String,
@@ -9,4 +14,4 @@ const accessSchema = new Schema({
 
 const accessModel = mongoose.model("Access", accessSchema);
 
-export { accessSchema, accessModel };
+export { accessSchema, accessModel, Access };

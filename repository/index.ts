@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export function initMongoConnection() {
-  mongoose.connect(process.env.MONGODBURI as string, {
+  mongoose.connect(process.env.MONGODB_URI as string, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });

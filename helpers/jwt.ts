@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 
 export interface Options {
+  skipper: string[];
   privateKey: string;
   expiresIn: number;
 }

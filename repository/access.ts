@@ -1,6 +1,9 @@
-import mongoose from "mongoose";
-import { accessModel } from "./model/access";
+import { Access, accessModel } from "./model/access";
 
-function insert() {
-  accessModel.insertMany([],{})
+export function insert(...accesses: any[]) {
+  return accessModel.insertMany(accesses);
+}
+
+export function findOne(access: Access) {
+  return accessModel.findOne(access);
 }
