@@ -34,21 +34,36 @@ export default function (ctx: Context, options: Options): boolean {
   const { rules } = options;
   const in_ = options.in;
   let passed = true;
-  const data = ctx.request.body;
+  let data = ctx.request.body;
+  if (in_ === In.Body) {
+    data = ctx.request.body;
+  }
+  let errorMsg;
   for (let field in rules) {
-    for (let rule in rules[field]) {
+    for (let rule of rules[field]) {
       if (rule === ValidType.Required) {
-        required(data, field);
+        const result = required(data, field);
+        if (result !== null) {
+          passed = false;
+          errorMsg = result.message;
+          break;
+        }
       }
     }
   }
   if (!passed) {
     ctx.status = 400;
-    ctx.body = "bad request";
+    ctx.body = errorMsg;
   }
   return passed;
 }
 
-function required(data: string | Record<string, unknown>, key: string) {
-  console.log("data:", data);
+function required(
+  data: string | Record<string, unknown>,
+  key: string
+): Error | null {
+  if (key in (data as any)) {
+    return null;
+  }
+  return Error(`params ${key} is required`);
 }
