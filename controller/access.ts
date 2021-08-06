@@ -38,6 +38,7 @@ router.post("/login", async (ctx: Context) => {
     return;
   }
   ctx.status = result.code;
+  ctx.body = result.error.message;
 });
 
 export = router;
