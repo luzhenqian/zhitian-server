@@ -26,14 +26,18 @@ router.post("/login", async (ctx: Context) => {
   if (!valid(ctx, { rules: registerRules, in: In.Body })) return;
 
   const { access_name, password } = ctx.request.body as Record<string, any>;
-  const result = accessService.login(access_name, password, ctx.jwt.options);
+  const result = await accessService.login(
+    access_name,
+    password,
+    ctx.jwt.options
+  );
 
-  if (!(result instanceof Error)) {
+  if (!(result.error instanceof Error)) {
     ctx.status = 200;
     ctx.body = result;
     return;
   }
-  ctx.status = 500;
+  ctx.status = result.code;
 });
 
 export = router;

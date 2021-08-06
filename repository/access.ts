@@ -5,5 +5,12 @@ export function insert(...accesses: any[]) {
 }
 
 export function findOne(access: Access) {
-  return accessModel.findOne(access);
+  return new Promise((resolve, reject) => {
+    accessModel.findOne(access, null, null, (err, doc) => {
+      if (err !== null) {
+        return reject(err);
+      }
+      resolve(doc);
+    });
+  });
 }
