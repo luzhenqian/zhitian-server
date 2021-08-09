@@ -1,5 +1,5 @@
 import { Options, sign } from "../helpers/jwt";
-import { findOne, insert } from "../repository/access";
+import { findOne, insert } from "../repository/account";
 import { CommonError, NewError } from "./common";
 
 export async function register(
