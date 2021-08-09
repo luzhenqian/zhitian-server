@@ -1,4 +1,4 @@
-import { Account, AccountModel } from "./model/access";
+import { Account, AccountModel } from "./model/account";
 
 export function insert(access: Account): Promise<Account> {
   const _access = new AccountModel(access);
