@@ -1,5 +1,5 @@
 import { Context } from "koa";
-import { router } from "./index";
+import { router } from "./router";
 import accountService from "../services/account";
 import valid, { In, ValidType } from "../helpers/params-valid";
 

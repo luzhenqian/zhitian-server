@@ -3,11 +3,10 @@ import bodyParser from "koa-bodyparser";
 import dotenv from "dotenv";
 
 import authoriaztion from "./middlewares/authoriaztion";
-import router from "./controller";
+import router from "./controller/router";
 import { init } from "./boots";
 
-import "./controller/account";
-import "./controller/view";
+import "./controller/index";
 
 dotenv.config();
 

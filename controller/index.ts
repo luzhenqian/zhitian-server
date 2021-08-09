@@ -1,5 +1,2 @@
-import Router from "@koa/router";
-
-export const router = new Router();
-
-export default router;
+import "./account";
+import "./view";
