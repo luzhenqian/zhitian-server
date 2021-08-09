@@ -3,17 +3,19 @@ import { router } from "./index";
 import accountService from "../services/account";
 import valid, { In, ValidType } from "../helpers/params-valid";
 
+console.log("account");
+
 const registerRules = {
-  access_name: [ValidType.Required],
+  account_name: [ValidType.Required],
   password: [ValidType.Required],
 };
 
 router.post("/register", async (ctx: Context) => {
   if (!valid(ctx, { rules: registerRules, in: In.Body })) return;
+  const { account_name, password } = ctx.request.body as Record<string, any>;
 
-  const { access_name, password } = ctx.request.body as Record<string, any>;
   const result = await accountService.register(
-    access_name,
+    account_name,
     password,
     ctx.jwt.options
   );
@@ -30,9 +32,9 @@ router.post("/register", async (ctx: Context) => {
 router.post("/login", async (ctx: Context) => {
   if (!valid(ctx, { rules: registerRules, in: In.Body })) return;
 
-  const { access_name, password } = ctx.request.body as Record<string, any>;
+  const { account_name, password } = ctx.request.body as Record<string, any>;
   const result = await accountService.login(
-    access_name,
+    account_name,
     password,
     ctx.jwt.options
   );

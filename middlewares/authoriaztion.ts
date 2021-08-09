@@ -22,7 +22,7 @@ export default function (options?: Options) {
       return;
     }
 
-    const auth_token = ctx.cookies.get("auth_token");
+    const auth_token = ctx.cookies.get("authorization");
     if (!auth_token) {
       ctx.status = 401;
       ctx.body = "unauthorized";
