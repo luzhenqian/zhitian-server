@@ -2,16 +2,16 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-interface Access {
-  access_name: string;
+interface Account {
+  account_name: string;
   password: string;
 }
 
-const accessSchema = new Schema({
-  access_name: String,
+const accountSchema = new Schema({
+  account_name: String,
   password: String,
 });
 
-const accessModel = mongoose.model("Access", accessSchema);
+const AccountModel = mongoose.model("Account", accountSchema);
 
-export { accessSchema, accessModel, Access };
+export { accountSchema, AccountModel, Account };

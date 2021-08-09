@@ -2,8 +2,8 @@ import Koa from "koa";
 import bodyParser from "koa-bodyparser";
 import dotenv from "dotenv";
 
-import router from "./controller/access";
 import authoriaztion from "./middlewares/authoriaztion";
+import router from "./controller";
 import { init } from "./boots";
 
 dotenv.config();

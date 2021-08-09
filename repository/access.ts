@@ -1,12 +1,18 @@
-import { Access, accessModel } from "./model/access";
+import { Account, AccountModel } from "./model/access";
 
-export function insert(...accesses: any[]) {
-  return accessModel.insertMany(accesses);
+export function insert(access: Account): Promise<Account> {
+  const _access = new AccountModel(access);
+  return new Promise((resolve, reject) => {
+    _access.save((err: any, doc: any) => {
+      if (err) return reject(err);
+      resolve(doc);
+    });
+  });
 }
 
-export function findOne(access: Access) {
+export function findOne(access: Account) {
   return new Promise((resolve, reject) => {
-    accessModel.findOne(access, null, null, (err, doc) => {
+    AccountModel.findOne(access, null, null, (err, doc) => {
       if (err !== null) {
         return reject(err);
       }

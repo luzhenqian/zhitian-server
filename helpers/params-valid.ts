@@ -67,3 +67,5 @@ function required(
   }
   return Error(`params ${key} is required`);
 }
+
+// TODO: other valid rule
