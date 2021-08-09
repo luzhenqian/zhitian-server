@@ -24,9 +24,12 @@ export async function viewUpdate(
 }
 
 export async function viewRemove(id: string): Promise<ICommonError | any> {
-  const result = await remove(id);
-  if (result instanceof Error) return NewError(result.message, 500);
-  return result;
+  try {
+    const result = await remove(id);
+    return result;
+  } catch (err) {
+    return NewError(err.message, 500);
+  }
 }
 
 export default {

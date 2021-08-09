@@ -49,3 +49,29 @@ router.get("/views", async (ctx: Context) => {
   ctx.status = result.code;
   ctx.body = result.error.message;
 });
+
+router.delete("/views/:id", async (ctx: Context) => {
+  let { id } = ctx.params;
+  const result = await viewService.viewRemove(id);
+  if (!(result instanceof CommonError)) {
+    ctx.body = result;
+    return;
+  }
+
+  ctx.status = result.code;
+  ctx.body = result.error.message;
+});
+
+router.patch("/views/:id", async (ctx: Context) => {
+  let { id } = ctx.params;
+  const view = ctx.request.body as unknown as ViewUpdate;
+  const result = await viewService.viewUpdate(id, view);
+
+  if (!(result instanceof CommonError)) {
+    ctx.body = result;
+    return;
+  }
+
+  ctx.status = result.code;
+  ctx.body = result.error.message;
+});
