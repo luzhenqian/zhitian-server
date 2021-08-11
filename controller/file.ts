@@ -27,20 +27,7 @@ router.post("/upload", upload.single("file"), async (ctx: Context) => {
   ctx.status = 500;
 });
 
-router.get("/download/:object_name", async (ctx: Context) => {
-  let { object_name } = ctx.params;
-  const result = await fileService.getFile(object_name);
-
-  if (!(result instanceof Error)) {
-    ctx.status = 200;
-    ctx.body = result;
-    return;
-  }
-
-  ctx.status = 500;
-});
-
-router.get("/image/:object_name", async (ctx: Context) => {
+router.get("/file/:object_name", async (ctx: Context) => {
   let { object_name } = ctx.params;
   const result = await fileService.getFile(object_name);
 
