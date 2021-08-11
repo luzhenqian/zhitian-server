@@ -45,9 +45,9 @@ router.get("/image/:object_name", async (ctx: Context) => {
   const result = await fileService.getFile(object_name);
 
   if (!(result instanceof Error)) {
-    // TODO: add response headers
+    ctx.set("Content-Type", result.contentType);
     ctx.status = 200;
-    ctx.body = result;
+    ctx.body = result.stream;
     return;
   }
 
