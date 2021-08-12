@@ -17,15 +17,12 @@ export async function changeConfig(
         let _config: Error | Config[];
         try {
           _config = await find({ view_id: config.view_id });
-          console.log(1);
         } catch (err) {
-          console.log(2);
           return insertConfig();
         }
         if ((_config as Array<any>).length === 0) {
           return insertConfig();
         }
-        console.log(3, _config);
         const result = await updateWithViewID(
           (_config as Config[])[0].view_id,
           config
