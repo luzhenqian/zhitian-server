@@ -17,5 +17,5 @@ init().then(() => {
     .use(authoriaztion({ skipper: ["/register", "/login"] }))
     .use(bodyParser())
     .use(router.routes())
-    .listen(3000);
+    .listen(process.env.SERVER_PORT);
 });

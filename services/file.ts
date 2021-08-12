@@ -31,7 +31,7 @@ export async function upload(
           metaData,
           (err, objInfo) => {
             if (err) return reject(err);
-            resolve(objectName);
+            resolve({ url: objectName });
           }
         );
         return;
