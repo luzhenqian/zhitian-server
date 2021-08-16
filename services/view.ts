@@ -11,10 +11,10 @@ export async function viewInsert(view: View): Promise<ICommonError | any> {
   }
 }
 
-export async function viewFind(view: ViewUpdate): Promise<ICommonError | any> {
+export async function viewFind(view?: ViewUpdate): Promise<ICommonError | any> {
   try {
     const result = await find(view);
-    return result;
+    return { list: result };
   } catch (err) {
     return NewError(err.message, 500);
   }

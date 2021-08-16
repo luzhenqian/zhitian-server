@@ -11,7 +11,7 @@ export function insert(view: View): Promise<View> {
   });
 }
 
-export function find(view: ViewUpdate) {
+export function find(view: ViewUpdate = {}) {
   return new Promise((resolve, reject) => {
     ViewModel.find(view, null, null, (err, docs) => {
       if (err !== null) return reject(err);

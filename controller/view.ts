@@ -11,10 +11,10 @@ const viewRules = {
   name: [ValidType.Required],
   width: [ValidType.Required],
   height: [ValidType.Required],
-  template_id: [ValidType.Required],
+  // template_id: [ValidType.Required],
   desc: [ValidType.Required],
-  color: [ValidType.Required],
-  img: [ValidType.Required],
+  // color: [ValidType.Required],
+  // img: [ValidType.Required],
 };
 
 router.post("/views", async (ctx: Context) => {
@@ -35,10 +35,11 @@ router.post("/views", async (ctx: Context) => {
 router.get("/views", async (ctx: Context) => {
   let { keywords } = ctx.request.query;
   if (Array.isArray(keywords)) keywords = keywords[0];
-  const queryView: ViewUpdate = {
-    name: keywords,
+  const queryView: ViewUpdate = {};
+  if (keywords) {
+    queryView.name = keywords;
     // TODO: fill other field
-  };
+  }
   const result = await viewService.viewFind(queryView);
 
   if (!(result.error instanceof CommonError)) {
