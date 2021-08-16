@@ -1,7 +1,9 @@
 import jwt from "jsonwebtoken";
+import { Skipper } from "../middlewares/authoriaztion";
 
 export interface Options {
-  skipper: string[];
+  skipperIP: RegExp[];
+  skipper: (Skipper | string)[];
   privateKey: string;
   expiresIn: number;
 }

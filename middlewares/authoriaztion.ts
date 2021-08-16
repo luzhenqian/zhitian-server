@@ -2,13 +2,20 @@ import { Context, Next } from "koa";
 import { verify, Options as JWTOptions } from "../helpers/jwt";
 
 interface Options {
-  skipper?: string[];
+  skipperIP?: RegExp[];
+  skipper?: (Skipper | string)[];
   privateKey?: string;
   expiresIn?: number;
 }
 
+export interface Skipper {
+  url: string | RegExp;
+  method: ("get" | "post" | "put" | "delete" | "patch")[];
+}
+
 export default function (options?: Options) {
   const defaultOptions: JWTOptions = {
+    skipperIP: [],
     skipper: [],
     privateKey: "lzq",
     expiresIn: 12 * 60 * 60,
@@ -17,9 +24,31 @@ export default function (options?: Options) {
   return async function (ctx: Context, next: Next) {
     ctx.jwt = { options: finalOptions };
 
-    if (finalOptions.skipper.includes(ctx.url)) {
-      await next();
-      return;
+    let skip = false;
+
+    skip =
+      finalOptions.skipper.find((s) => {
+        if (typeof s === "string") {
+          return s === ctx.url;
+        }
+        return s.method.find((m) => m === ctx.method.toLowerCase()) !== null &&
+          typeof s.url === "string"
+          ? s.url === ctx.url
+          : (s.url as RegExp).test(ctx.url);
+      }) !== undefined;
+
+    if (!skip) {
+      for (let i = 0; i < finalOptions.skipperIP.length; i++) {
+        const reg = finalOptions.skipperIP[i];
+        if (reg.test(ctx.origin) || reg.test(ctx.ip)) {
+          skip = true;
+          break;
+        }
+      }
+    }
+
+    if (skip) {
+      return await next();
     }
 
     const auth_token = ctx.cookies.get("authorization");

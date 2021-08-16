@@ -14,7 +14,16 @@ init().then(() => {
   const app = new Koa();
 
   app
-    .use(authoriaztion({ skipper: ["/register", "/login"] }))
+    .use(
+      authoriaztion({
+        skipper: [
+          "/register",
+          "/login",
+          { url: /\/config/, method: ["get"] },
+          { url: /\/views\//, method: ["get"] },
+        ],
+      })
+    )
     .use(bodyParser())
     .use(router.routes())
     .listen(process.env.SERVER_PORT);
