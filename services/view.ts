@@ -1,5 +1,5 @@
 import { View, ViewUpdate } from "../repository/model/view";
-import { find, insert, remove, update } from "../repository/view";
+import { find, findOne, insert, remove, update } from "../repository/view";
 import { ICommonError, NewError } from "./common";
 
 export async function viewInsert(view: View): Promise<ICommonError | any> {
@@ -15,6 +15,17 @@ export async function viewFind(view?: ViewUpdate): Promise<ICommonError | any> {
   try {
     const result = await find(view);
     return { list: result };
+  } catch (err) {
+    return NewError(err.message, 500);
+  }
+}
+
+export async function viewFindOne(
+  view?: ViewUpdate
+): Promise<ICommonError | any> {
+  try {
+    const result = await findOne(view);
+    return result;
   } catch (err) {
     return NewError(err.message, 500);
   }
@@ -44,6 +55,7 @@ export async function viewRemove(id: string): Promise<ICommonError | any> {
 export default {
   viewInsert,
   viewFind,
+  viewFindOne,
   viewUpdate,
   viewRemove,
 };

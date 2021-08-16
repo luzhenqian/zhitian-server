@@ -54,7 +54,7 @@ router.get("/views", async (ctx: Context) => {
 router.get("/views/:id", async (ctx: Context) => {
   let id = ctx.params.id;
   const queryView: ViewUpdate = { _id: id };
-  const result = await viewService.viewFind(queryView);
+  const result = await viewService.viewFindOne(queryView);
 
   if (!(result.error instanceof CommonError)) {
     ctx.body = result;

@@ -20,6 +20,15 @@ export function find(view: ViewUpdate = {}) {
   });
 }
 
+export function findOne(view: ViewUpdate = {}) {
+  return new Promise((resolve, reject) => {
+    ViewModel.findOne(view, null, null, (err, docs) => {
+      if (err !== null) return reject(err);
+      resolve(docs);
+    });
+  });
+}
+
 export function remove(id: string) {
   return new Promise((resolve, reject) => {
     if (isValidObjectId(id)) {
