@@ -1,5 +1,11 @@
 import { Config } from "../repository/model/config";
-import { find, insert, update, updateWithViewID } from "../repository/config";
+import {
+  find,
+  findOne,
+  insert,
+  update,
+  updateWithViewID,
+} from "../repository/config";
 import { ICommonError, NewError } from "./common";
 
 export async function changeConfig(
@@ -37,4 +43,16 @@ export async function changeConfig(
   });
 }
 
-export default { changeConfig };
+export async function getConfig(viewID: string): Promise<ICommonError | any> {
+  try {
+    const result = await findOne({ view_id: viewID });
+    if (!(result instanceof Error)) {
+      return result;
+    }
+    return NewError(result.message, 500);
+  } catch (err) {
+    return NewError(err.message, 500);
+  }
+}
+
+export default { changeConfig, getConfig };

@@ -51,6 +51,20 @@ router.get("/views", async (ctx: Context) => {
   ctx.body = result.error.message;
 });
 
+router.get("/views/:id", async (ctx: Context) => {
+  let id = ctx.params.id;
+  const queryView: ViewUpdate = { _id: id };
+  const result = await viewService.viewFind(queryView);
+
+  if (!(result.error instanceof CommonError)) {
+    ctx.body = result;
+    return;
+  }
+
+  ctx.status = result.code;
+  ctx.body = result.error.message;
+});
+
 router.delete("/views/:id", async (ctx: Context) => {
   let { id } = ctx.params;
   const result = await viewService.viewRemove(id);

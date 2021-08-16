@@ -21,6 +21,7 @@ init().then(() => {
           "/login",
           { url: /\/config/, method: ["get"] },
           { url: /\/views\//, method: ["get"] },
+          { url: /\/file\//, method: ["get"] },
         ],
       })
     )

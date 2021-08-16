@@ -20,6 +20,17 @@ export function find(config: ConfigOption): Promise<Error | Config[]> {
   });
 }
 
+export function findOne(config: ConfigOption): Promise<Error | Config> {
+  return new Promise((resolve, reject) => {
+    ConfigModel.findOne(config, null, null, (err, docs) => {
+      console.log(docs);
+      
+      if (err !== null) return reject(err);
+      resolve(docs);
+    });
+  });
+}
+
 export function remove(id: string) {
   return new Promise((resolve, reject) => {
     if (isValidObjectId(id)) {

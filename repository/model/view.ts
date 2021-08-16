@@ -13,6 +13,7 @@ interface View {
 }
 
 interface ViewUpdate {
+  _id?: string;
   name?: string;
   width?: number;
   height?: number;

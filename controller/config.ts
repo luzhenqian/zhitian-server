@@ -13,6 +13,28 @@ const configRules = {
   config: [ValidType.Required],
 };
 
+const getConfigRules = {
+  view_id: [ValidType.Required],
+  config: [ValidType.Required],
+};
+
+router.get("/config/:view_id", async (ctx: Context) => {
+  // if (!valid(ctx, { rules: getConfigRules, in: In.Path })) return;
+
+  console.log(ctx.params.view_id);
+
+  const result = await configService.getConfig(ctx.params.view_id);
+
+  if (!(result instanceof CommonError)) {
+    ctx.status = 200;
+    ctx.body = result;
+    return;
+  }
+
+  ctx.status = result.code;
+  ctx.body = result.error.message;
+});
+
 router.put("/config", async (ctx: Context) => {
   if (!valid(ctx, { rules: configRules, in: In.Body })) return;
 
