@@ -33,6 +33,7 @@ router.get("/file/:object_name", async (ctx: Context) => {
 
   if (!(result instanceof Error)) {
     ctx.set("Content-Type", result.contentType);
+    ctx.set("Cache-Control", "max-age=2592000");
     ctx.status = 200;
     ctx.body = result.stream;
     return;
