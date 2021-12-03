@@ -16,7 +16,7 @@ export async function upload(
 ): Promise<ICommonError | any> {
   try {
     return new Promise(async (resolve, reject) => {
-      if (minioClient.bucketExists(bucketName)) {
+      if (await minioClient.bucketExists(bucketName)) {
         const metaData: ItemBucketMetadata = {
           "Content-Type": file.mimetype,
         };
@@ -41,7 +41,7 @@ export async function upload(
         if (err) return reject(err);
       });
     });
-  } catch (err) {
+  } catch (err: any) {
     return NewError(err.message, 500);
   }
 }
@@ -49,7 +49,7 @@ export async function upload(
 export async function getFile(objectName: string): Promise<ICommonError | any> {
   try {
     return new Promise(async (resolve, reject) => {
-      if (minioClient.bucketExists(bucketName)) {
+      if (await minioClient.bucketExists(bucketName)) {
         minioClient.getObject(bucketName, objectName, async (err, stream) => {
           if (err) return reject(err);
           const stat = await minioClient.statObject(bucketName, objectName);
@@ -60,7 +60,7 @@ export async function getFile(objectName: string): Promise<ICommonError | any> {
 
       reject(Error("bucket is not exists"));
     });
-  } catch (err) {
+  } catch (err: any) {
     return NewError(err.message, 500);
   }
 }

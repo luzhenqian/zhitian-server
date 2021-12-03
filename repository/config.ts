@@ -11,7 +11,7 @@ export function insert(config: Config): Promise<Config> {
   });
 }
 
-export function find(config: ConfigOption): Promise<Error | Config[]> {
+export function find(config: ConfigOption): Promise<Error | Config[] | any> {
   return new Promise((resolve, reject) => {
     ConfigModel.find(config, null, null, (err, docs) => {
       if (err !== null) return reject(err);
@@ -20,7 +20,7 @@ export function find(config: ConfigOption): Promise<Error | Config[]> {
   });
 }
 
-export function findOne(config: ConfigOption): Promise<Error | Config> {
+export function findOne(config: ConfigOption): Promise<Error | Config | any> {
   return new Promise((resolve, reject) => {
     ConfigModel.findOne(config, null, null, (err, docs) => {
       console.log(docs);

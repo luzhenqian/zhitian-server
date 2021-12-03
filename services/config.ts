@@ -34,10 +34,10 @@ export async function changeConfig(
           config
         );
         return resolve(result);
-      } catch (err) {
+      } catch (err: any) {
         return reject(NewError(err.message, 500));
       }
-    } catch (err) {
+    } catch (err: any) {
       return reject(NewError(err.message, 500));
     }
   });
@@ -50,7 +50,7 @@ export async function getConfig(viewID: string): Promise<ICommonError | any> {
       return result;
     }
     return NewError(result.message, 500);
-  } catch (err) {
+  } catch (err: any) {
     return NewError(err.message, 500);
   }
 }

@@ -8,7 +8,7 @@ export async function componentInsert(
   try {
     const result = await insert(component);
     return result;
-  } catch (err) {
+  } catch (err: any) {
     return NewError(err.message, 500);
   }
 }
@@ -19,7 +19,7 @@ export async function componentFind(
   try {
     const result = await find(component);
     return { list: result };
-  } catch (err) {
+  } catch (err: any) {
     return NewError(err.message, 500);
   }
 }
@@ -30,7 +30,7 @@ export async function componentFindOne(
   try {
     const result = await findOne(c);
     return result;
-  } catch (err) {
+  } catch (err: any) {
     return NewError(err.message, 500);
   }
 }
@@ -42,7 +42,7 @@ export async function componentUpdate(
   try {
     const result = await update(id, c);
     return result;
-  } catch (err) {
+  } catch (err: any) {
     return NewError(err.message, 500);
   }
 }
@@ -51,7 +51,7 @@ export async function componentRemove(id: string): Promise<ICommonError | any> {
   try {
     const result = await remove(id);
     return result;
-  } catch (err) {
+  } catch (err: any) {
     return NewError(err.message, 500);
   }
 }
