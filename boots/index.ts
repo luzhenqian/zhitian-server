@@ -1,6 +1,7 @@
 import * as Minio from "minio";
 import { MongoDBOptional, createMongoDBConnect } from "./mongo";
 import { MinioOptional, createMinioInstance } from "./minio";
+import initialData from "./initial-data";
 
 async function initMongoConnection() {
   const optional = new MongoDBOptional(process.env.MONGODB_URI);
@@ -21,5 +22,5 @@ async function initMinio() {
 }
 
 export function init() {
-  return Promise.all([initMongoConnection(), initMinio()]);
+  return Promise.all([initMongoConnection(), initMinio(), initialData()]);
 }

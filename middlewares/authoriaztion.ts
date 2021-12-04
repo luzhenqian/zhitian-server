@@ -8,16 +8,19 @@ interface Options {
   expiresIn?: number;
 }
 
+export const privateKey = 'lzq'
+
 export interface Skipper {
   url: string | RegExp;
-  method: ("get" | "post" | "put" | "delete" | "patch")[];
+  // TODO: implement *
+  method: ("*" | "get" | "post" | "put" | "delete" | "patch")[];
 }
 
 export default function (options?: Options) {
   const defaultOptions: JWTOptions = {
     skipperIP: [],
     skipper: [],
-    privateKey: "lzq",
+    privateKey,
     expiresIn: 12 * 60 * 60,
   };
   const finalOptions = Object.assign(defaultOptions, options);

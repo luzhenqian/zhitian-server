@@ -33,6 +33,7 @@ router.post("/login", async (ctx: Context) => {
   if (!valid(ctx, { rules: registerRules, in: In.Body })) return;
 
   const { account_name, password } = ctx.request.body as Record<string, any>;
+  
   const result = await accountService.login(
     account_name,
     password,

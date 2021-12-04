@@ -5,7 +5,7 @@ import { ICommonError, NewError } from "./common";
 export async function register(
   account_name: string,
   password: string,
-  jwtOpts: Options
+  jwtOpts?: Options
 ): Promise<ICommonError | any> {
   const result = await insert({ account_name: account_name, password });
   if (result instanceof Error) return NewError(result.message, 500);
