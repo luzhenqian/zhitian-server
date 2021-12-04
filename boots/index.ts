@@ -1,48 +1,23 @@
-import mongoose from "mongoose";
 import * as Minio from "minio";
+import { MongoDBOptional, createMongoDBConnect } from "./mongo";
+import { MinioOptional, createMinioInstance } from "./minio";
 
-function initMongoConnection() {
-  mongoose.connect(process.env.MONGODB_URI as string, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-
-  const db = mongoose.connection;
-
-  return new Promise((resolve, reject) => {
-    db.on("error", (err) => reject(err));
-    db.once("open", () => {
-      resolve(null);
-    });
-  });
+async function initMongoConnection() {
+  const optional = new MongoDBOptional(process.env.MONGODB_URI);
+  await createMongoDBConnect(optional);
 }
 
 export let minioClient: Minio.Client;
 
-function initMinio() {
-  if (process.env.MINIO_ENDPOINT === undefined) {
-    throw Error("lack minio client param [MINIO_ENDPOINT]");
-  }
-  if (process.env.MINIO_PORT === undefined) {
-    throw Error("lack minio client param [MINIO_PORT]");
-  }
-  if (process.env.MINIO_USESSL === undefined) {
-    throw Error("lack minio client param [MINIO_USESSL]");
-  }
-  if (process.env.MINIO_ACCESSKEY === undefined) {
-    throw Error("lack minio client param [MINIO_ACCESSKEY]");
-  }
-  if (process.env.MINIO_SECRETKEY === undefined) {
-    throw Error("lack minio client param [MINIO_SECRETKEY]");
-  }
-
-  minioClient = new Minio.Client({
-    endPoint: process.env.MINIO_ENDPOINT,
-    port: Number(process.env.MINIO_PORT),
-    useSSL: process.env.MINIO_USESSL === "true",
-    accessKey: process.env.MINIO_ACCESSKEY,
-    secretKey: process.env.MINIO_SECRETKEY,
-  });
+async function initMinio() {
+  const optional = new MinioOptional(
+    process.env.MINIO_ENDPOINT,
+    process.env.MINIO_PORT,
+    process.env.MINIO_USESSL,
+    process.env.MINIO_ACCESSKEY,
+    process.env.MINIO_SECRETKEY
+  );
+  minioClient = await createMinioInstance(optional);
 }
 
 export function init() {
